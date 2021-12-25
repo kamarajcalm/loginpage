@@ -1,46 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput, } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 const { height, width } = Dimensions.get("window")
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Checkbox from 'expo-checkbox';
-import useChangeEffect from './hooks/useChangeEffect';
-const screenHeight = Dimensions.get("screen").height
 export default function App() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
-  const [emailError, setEmailError] = useState(null)
-  const [passwordError, setPasswordError] = useState(null)
 
-  const login = () => {
-    let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
-    let validemail = emailPattern.test(email)
-    if (!validemail) {
-      return setEmailError("Please Enter a valid email")
-    }
-    if (password.length == 0) {
-      return setPasswordError("Please Enter Password")
-    }
-  }
 
-  useChangeEffect(() => {
-    let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
-    let validemail = emailPattern.test(email)
-    if (!validemail) {
-      setEmailError("Please Enter a valid email")
-    } else {
-      setEmailError(null)
-    }
-  }, [email])
-  useChangeEffect(() => {
-    if (password.length == 0) {
-      setPasswordError("Please Enter Password")
-    } else {
-      setPasswordError(null)
-    }
-  }, [password])
   return (
     <LinearGradient style={styles.container}
       colors={["#70ACF4", '#6CAAF3', "#5FA2F1", "#3585E4",]}
@@ -56,7 +26,6 @@ export default function App() {
         <View style={[styles.textInputContainer, styles.boxWithShadow]}>
           <View>
             <Text style={styles.text}>Email</Text>
-            {emailError && <Text style={[styles.text, { color: "red" }]}>{emailError}</Text>}
           </View>
           <View style={[styles.textBox]}>
             <View style={[styles.iconContainer]}>
@@ -79,7 +48,6 @@ export default function App() {
         <View style={[styles.textInputContainer, styles.boxWithShadow]}>
           <View>
             <Text style={styles.text}>password</Text>
-            {passwordError && <Text style={[styles.text, { color: "red" }]}>{passwordError}</Text>}
           </View>
           <View style={[styles.textBox]}>
             <View style={[styles.iconContainer]}>
@@ -119,32 +87,8 @@ export default function App() {
 
         </View>
         <View style={[styles.textInputContainer]}>
-          <TouchableOpacity style={[styles.loginButton, styles.boxWithShadow]}
-            onPress={login}
-          >
+          <TouchableOpacity style={[styles.loginButton, styles.boxWithShadow]}>
             <Text style={[styles.text, { color: "#3585E4" }]}>LOGIN</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.center, { marginTop: 15 }]}>
-          <Text style={[styles.text]}>-OR-</Text>
-        </View>
-        <View style={[styles.center, { marginTop: 15 }]}>
-          <Text style={[styles.text, { fontSize: 12, fontWeight: "bold" }]}>Sign in with</Text>
-        </View>
-        <View style={styles.socialContainer}>
-          <TouchableOpacity>
-            <Image
-              style={{ height: 40, width: 40 }}
-              source={{ uri: "https://www.freepnglogos.com/uploads/logo-facebook-png/logo-facebook-facebook-logo-transparent-png-pictures-icons-and-0.png" }}
-
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 20 }}>
-            <Image
-              style={{ height: 40, width: 40 }}
-              source={{ uri: "https://e7.pngegg.com/pngimages/337/722/png-clipart-google-search-google-account-google-s-google-play-google-company-text.png" }}
-
-            />
           </TouchableOpacity>
         </View>
       </View>
@@ -162,7 +106,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    height: screenHeight
+    flex: 1,
 
   },
   textInputContainer: {
@@ -174,11 +118,11 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   content: {
-    height: "90%",
+    flex: 0.9,
     justifyContent: "center"
   },
   footer: {
-    height: "10%",
+    flex: 0.1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
@@ -239,11 +183,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10
-  },
-  socialContainer: {
-    marginTop: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row"
   }
 });

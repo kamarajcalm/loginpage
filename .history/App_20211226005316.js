@@ -3,44 +3,16 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput, Image 
 import { LinearGradient } from 'expo-linear-gradient';
 const { height, width } = Dimensions.get("window")
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Checkbox from 'expo-checkbox';
-import useChangeEffect from './hooks/useChangeEffect';
-const screenHeight = Dimensions.get("screen").height
 export default function App() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
-  const [emailError, setEmailError] = useState(null)
-  const [passwordError, setPasswordError] = useState(null)
 
   const login = () => {
-    let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
-    let validemail = emailPattern.test(email)
-    if (!validemail) {
-      return setEmailError("Please Enter a valid email")
-    }
-    if (password.length == 0) {
-      return setPasswordError("Please Enter Password")
-    }
-  }
 
-  useChangeEffect(() => {
-    let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
-    let validemail = emailPattern.test(email)
-    if (!validemail) {
-      setEmailError("Please Enter a valid email")
-    } else {
-      setEmailError(null)
-    }
-  }, [email])
-  useChangeEffect(() => {
-    if (password.length == 0) {
-      setPasswordError("Please Enter Password")
-    } else {
-      setPasswordError(null)
-    }
-  }, [password])
+  }
   return (
     <LinearGradient style={styles.container}
       colors={["#70ACF4", '#6CAAF3', "#5FA2F1", "#3585E4",]}
@@ -56,7 +28,6 @@ export default function App() {
         <View style={[styles.textInputContainer, styles.boxWithShadow]}>
           <View>
             <Text style={styles.text}>Email</Text>
-            {emailError && <Text style={[styles.text, { color: "red" }]}>{emailError}</Text>}
           </View>
           <View style={[styles.textBox]}>
             <View style={[styles.iconContainer]}>
@@ -79,7 +50,6 @@ export default function App() {
         <View style={[styles.textInputContainer, styles.boxWithShadow]}>
           <View>
             <Text style={styles.text}>password</Text>
-            {passwordError && <Text style={[styles.text, { color: "red" }]}>{passwordError}</Text>}
           </View>
           <View style={[styles.textBox]}>
             <View style={[styles.iconContainer]}>
@@ -162,7 +132,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    height: screenHeight
+    height: "100%"
 
   },
   textInputContainer: {

@@ -34,13 +34,6 @@ export default function App() {
       setEmailError(null)
     }
   }, [email])
-  useChangeEffect(() => {
-    if (password.length == 0) {
-      setPasswordError("Please Enter Password")
-    } else {
-      setPasswordError(null)
-    }
-  }, [password])
   return (
     <LinearGradient style={styles.container}
       colors={["#70ACF4", '#6CAAF3', "#5FA2F1", "#3585E4",]}

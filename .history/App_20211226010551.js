@@ -12,16 +12,12 @@ export default function App() {
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
   const [emailError, setEmailError] = useState(null)
-  const [passwordError, setPasswordError] = useState(null)
 
   const login = () => {
     let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
     let validemail = emailPattern.test(email)
     if (!validemail) {
-      return setEmailError("Please Enter a valid email")
-    }
-    if (password.length == 0) {
-      return setPasswordError("Please Enter Password")
+      setEmailError("Please Enter a valid email")
     }
   }
 
@@ -34,13 +30,6 @@ export default function App() {
       setEmailError(null)
     }
   }, [email])
-  useChangeEffect(() => {
-    if (password.length == 0) {
-      setPasswordError("Please Enter Password")
-    } else {
-      setPasswordError(null)
-    }
-  }, [password])
   return (
     <LinearGradient style={styles.container}
       colors={["#70ACF4", '#6CAAF3', "#5FA2F1", "#3585E4",]}
@@ -79,7 +68,6 @@ export default function App() {
         <View style={[styles.textInputContainer, styles.boxWithShadow]}>
           <View>
             <Text style={styles.text}>password</Text>
-            {passwordError && <Text style={[styles.text, { color: "red" }]}>{passwordError}</Text>}
           </View>
           <View style={[styles.textBox]}>
             <View style={[styles.iconContainer]}>
